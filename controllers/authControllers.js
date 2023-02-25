@@ -2,7 +2,7 @@ import { hashedPassword } from "../helpers/authHelpers.js";
 import userModel from "../models/userModel.js"
 
 
-export const registerController = async (req,res) => {
+export const registerController = async (req,res) => { 
     try {
         const {name,email,password,phone,address} = req.body;
         // checking required fields not empty
