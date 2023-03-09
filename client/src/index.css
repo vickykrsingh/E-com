@@ -1,0 +1,90 @@
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Navbar */
+
+.active{
+  border-bottom: 2px solid #000;
+}
+
+/* Navbar End */
+
+
+/* Footer */
+
+.footer a{
+  text-decoration: none ;
+  padding: 10px ;
+  color: #fff;
+
+}
+
+/* Footer End */
+
+/* HomePage */
+.HomePage{
+  /* overflow: hidden; */
+  word-wrap: break-word;
+  width: 100%;
+  min-height: 90vh;
+  color: #fff;
+}
+
+.main{
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Register */
+
+.register{
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 10px 20px;
+  width: 100%;
+  min-height: 90vh;
+}
+.register form{
+  width: 500px;
+
+}
+/* Register End */
+
+/* Login */
+
+.login{
+  width: 100vw;
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.form-control:focus {
+  border-color: rgb(255,193,7);
+  box-shadow: 0 0 0 0.1rem rgba(255, 193, 7,0.6);
+} 
+/* Login End */
+
+/* Spin */
+.spin{
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}

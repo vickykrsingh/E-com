@@ -1,11 +1,10 @@
 // packages import
 import express from "express";
-import dotenv from 'dotenv'
-import colors from 'colors'
-import morgan from 'morgan'
+import dotenv from 'dotenv';
+import colors from 'colors';
+import morgan from 'morgan';
 import connectDB from "./Config/db.js";
-import authRoutes from './routes/authRoutes.js'
-
+import authRoutes from './routes/authRoutes.js';
 
 // rest object
 const app = express();
