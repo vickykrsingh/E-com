@@ -5,9 +5,8 @@ export const requireSignIn = (req,res,next) => {
     try {
         // verify JWT token with the help of authorization key of header object in the basic of JWT_SECRET key
         const decode = JWT.verify(req.headers.authorization,process.env.JWT_SECRET)
-        console.log(decode)
         req.user = decode;
-        next()
+        next();
     } catch (error) {
         res.status(401).send({
             success:false,
@@ -40,3 +39,4 @@ export const isAdmin = async (req,res,next) => {
         })
     }
 }
+

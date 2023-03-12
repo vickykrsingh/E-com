@@ -3,13 +3,14 @@ import Layout from "../../components/Layout/Layout";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useAuth } from "../../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate , useLocation, Link } from "react-router-dom";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [auth, setAuth] = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const login = async (e) => {
     e.preventDefault();
@@ -20,25 +21,18 @@ export default function Login() {
       });
       if (res && res.data.success) {
         toast.success(res.data && res.data.message);
-        // localStorage.setItem(
-        //   "user",
-        //   JSON.stringify({
-        //     email,
-        //     password,
-        //   })
-        // );
         setAuth({
           ...auth,
           user: res.data.user,
           token: res.data.token,
         });
         localStorage.setItem("auth", JSON.stringify(res.data));
-        navigate("/");
+        navigate(location.state || "/");
       } else {
         toast.error(res.data.message);
       }
     } catch (error) {
-      toast.error("something went wrong");
+      toast.error("something went wrong!");
     }
   };
 
@@ -71,11 +65,13 @@ export default function Login() {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
+
+                <Link to='/forgetpassword' className="btn btn-outline-warning form-control fw-bold text-white mb-3">Forget Password</Link>
                 <button
                   type="submit"
                   className="btn btn-outline-warning form-control fw-bold text-white"
                 >
-                  Submit
+                  LOGIN
                 </button>
               </form>
             </div>

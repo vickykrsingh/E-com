@@ -5,7 +5,7 @@ import JWT from "jsonwebtoken";
 // registration Controller
 export const registerController = async (req, res) => {
   try {
-    const { name, email, password, phone, address } = req.body;
+    const { name, email, password, phone,answer, address } = req.body;
     // checking required fields not empty
     if (!name) {
       return res.send({ error: "name is required" });
@@ -21,6 +21,9 @@ export const registerController = async (req, res) => {
     }
     if (!address) {
       return res.send({ error: "address is required" });
+    }
+    if(!answer){
+      return res.send({error:"answer is required"})
     }
     // check existing user
     const existingUser = await userModel.findOne({ email });
@@ -38,6 +41,7 @@ export const registerController = async (req, res) => {
       email,
       phone,
       address,
+      answer,
       password: hashPassword,
     }).save();
     res.status(202).send({
@@ -60,7 +64,7 @@ export const loginController = async (req, res) => {
     // checking the condition when email and password is empty while passing from the client
     const { email, password } = req.body;
     if (!email || !password) {
-      return res.status(200).send({
+      return res.status(400).send({
         success: false,
         message: "Invalid email or password",
       });
@@ -93,6 +97,7 @@ export const loginController = async (req, res) => {
         email: user.email,
         phone: user.phone,
         address: user.address,
+        role: user.role,
       },
       token,
     });
@@ -109,3 +114,44 @@ export const loginController = async (req, res) => {
 export const testController = (req, res) => {
   res.send("protected route");
 };
+
+
+// Forget Password
+
+export const forgetPasswordController = async (req,res) => {
+  try {
+    const {email,answer,newPassword} = req.body;
+    if(!email){
+      return res.status(400).send({error:'email is required'})
+    }
+    if(!answer){
+      return res.status(400).send({error:'answer is require'})
+    }
+    if(!newPassword){
+      return res.status(400).send({error:'New Password is required'})
+    }
+  
+    const user = await userModel.findOne({email,answer})
+  
+    if(!user){
+      return res.status(400).send({
+        success:false,
+        message:'Invalid Email or password'
+      })
+    }
+  
+    const hashPass = await hashedPassword(newPassword)
+    await userModel.findByIdAndUpdate(user._id,{password:hashPass})
+    return res.status(200).send({
+      success:true,
+      message:'Reset Password Successfully',
+    })
+  } catch (error) {
+    console.log(error)
+    res.status(500).send({
+      success:false,
+      message:'something went wrong!',
+      error
+    })
+  }
+}

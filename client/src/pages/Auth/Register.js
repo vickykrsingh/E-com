@@ -10,6 +10,7 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
+  const [answer, setAnswer] = useState("");
   const navigate = useNavigate();
 
   const register = async (e) => {
@@ -21,6 +22,7 @@ export default function Register() {
         password,
         phone,
         address,
+        answer,
       });
       if (res.data.success) {
         toast.success("User Registered Successfully...");
@@ -88,6 +90,16 @@ export default function Register() {
                 placeholder="Enter Address"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
+              />
+            </div>
+            <div className="mb-3">
+              <input
+                type="text"
+                className="form-control"
+                id="exampleInputPassword5"
+                placeholder="Enter Your Favorite IPL Team"
+                value={answer}
+                onChange={(e) => setAnswer(e.target.value)}
               />
             </div>
             <button
