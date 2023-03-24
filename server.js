@@ -5,6 +5,8 @@ import colors from 'colors';
 import morgan from 'morgan';
 import connectDB from "./Config/db.js";
 import authRoutes from './routes/authRoutes.js';
+import categoryRoutes from './routes/categoryRoutes.js'
+import productRoute from './routes/productRoutes.js'
 
 // rest object
 const app = express();
@@ -26,6 +28,8 @@ const Mode = process.env.MODE
 
 // routes
 app.use('/api/v1/auth',authRoutes)
+app.use('/api/v1/category',categoryRoutes)
+app.use('/api/v1/product',productRoute)
 
 // Rest api
 app.get('/',(req,res) => {

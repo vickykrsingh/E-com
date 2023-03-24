@@ -1,11 +1,11 @@
 import JWT from "jsonwebtoken"
 import userModel from "../models/userModel.js";
 // protected route middleware using JWT(json web Token)
-export const requireSignIn = (req,res,next) => {
+export const requireSignIn = async (req,res,next) => {
     try {
         // verify JWT token with the help of authorization key of header object in the basic of JWT_SECRET key
-        const decode = JWT.verify(req.headers.authorization,process.env.JWT_SECRET)
-        req.user = decode;
+        const decode = await JWT.verify(req.headers.authorization,process.env.JWT_SECRET)
+        req.user = await decode;
         next();
     } catch (error) {
         res.status(401).send({
@@ -39,4 +39,12 @@ export const isAdmin = async (req,res,next) => {
         })
     }
 }
+
+
+
+
+
+
+
+
 

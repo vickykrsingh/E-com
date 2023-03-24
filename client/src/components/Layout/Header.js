@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import Search from "../Search";
 
 export default function Header() {
   const [auth, setAuth] = useAuth();
@@ -18,7 +19,7 @@ export default function Header() {
         className="navbar navbar-expand-lg bg-body-tertiary bg-primary"
         data-bs-theme="dark"
       >
-        <div className="container">
+        <div className="container-fluid">
         <div>
           <Link className="navbar-brand" to="/">
             DD Products
@@ -93,6 +94,7 @@ export default function Header() {
                   Cart(0)
                 </NavLink>
               </li>
+              <Search/>
             </ul>
           </div>
         </div>

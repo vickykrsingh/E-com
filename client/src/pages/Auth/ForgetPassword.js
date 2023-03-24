@@ -23,7 +23,7 @@ function ForgetPassword() {
           toast.success(res.data && res.data.message);
           navigate("/login");
         } else {
-          toast.error(res.data.error);
+          toast.error(res.data.message);
         }
       } catch (error) {
         toast.error("something went wrong!");
@@ -61,7 +61,7 @@ function ForgetPassword() {
                   <input
                     type="password"
                     className="form-control"
-                    id="exampleInputPassword1"
+                    id="exampleInputPassword2"
                     placeholder="Enter New Password"
                     value={newPassword}
                     onChange={(e) => setNewPassword(e.target.value)}

@@ -3,6 +3,7 @@ import Layout from "../../components/Layout/Layout";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+// import { response } from "express";
 
 export default function Register() {
   const [name, setName] = useState("");
@@ -16,7 +17,7 @@ export default function Register() {
   const register = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("/api/v1/auth/register", {
+      const {data} = await axios.post("/api/v1/auth/register", {
         name,
         email,
         password,
@@ -24,14 +25,14 @@ export default function Register() {
         address,
         answer,
       });
-      if (res.data.success) {
-        toast.success("User Registered Successfully...");
+      if (data.success) {
+        toast.success(data.message);
         navigate("/login");
-      } else {
-        toast.error(res.data.error);
+      } else{
+        toast.error(data.message);
       }
     } catch (error) {
-      console.log(error.data.error);
+      console.log(error);
     }
   };
 
