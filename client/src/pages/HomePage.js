@@ -17,12 +17,13 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (!checked.length || !radio.length) getAllProduct();
+    if (!checked.length || !radio.length) {
+      getAllProduct();
+      totalProductCount();
+    }
+    fetchAllCategory();
+    // eslint-disable-next-line
   }, [checked.length, radio.length]);
-  
-  useEffect(()=>{
-    totalProductCount()
-  })
 
   const getAllProduct = async (req, res) => {
     try {
@@ -37,15 +38,10 @@ export default function Home() {
     }
   };
 
-  useEffect(() => {
-    fetchAllCategory();
-  }, []);
 
   const fetchAllCategory = async () => {
     try {
-      setLoading(true)
       const category = await axios.get("/api/v1/category/get-all-category");
-      setLoading(false)
       if (category?.data?.success) {
         setCategory(category?.data?.allCategory);
       }
@@ -63,7 +59,6 @@ export default function Home() {
     setChecked(allProduct);
   };
 
-
   const totalProductCount = async (req, res) => {
     try {
       const { data } = await axios.get("/api/v1/product/product-count");
@@ -79,6 +74,7 @@ export default function Home() {
     } else {
       loadMore();
     }
+    // eslint-disable-next-line
   }, [page]);
 
   const loadMore = async () => {
@@ -92,6 +88,7 @@ export default function Home() {
 
   useEffect(() => {
     if (checked.length || radio.length) filterProducts();
+    // eslint-disable-next-line
   }, [checked, radio]);
   const filterProducts = async () => {
     try {
@@ -105,13 +102,11 @@ export default function Home() {
     }
   };
 
-  useEffect(()=>{
-    totalProductCount()
-  },[])
+  // useEffect(()=>{
+  //   totalProductCount()
+  // },[])
 
   return (
-    <>
-    {loading ? <Loading/> :
     <Layout title={"ECommerce - Home"}>
       <div className="HomePage container-fluid">
         <div className="row">
@@ -144,7 +139,7 @@ export default function Home() {
           <div className="col-lg-9">
             <div className="container pt-2">
               <h4>All Products</h4>
-              <div className="row d-flex justify-content-around">
+              {loading ? <Loading/> : <div className="row d-flex justify-content-around">
                 {products.length === 0 ? (
                   <h1 className="text-danger text-center">No Products Found</h1>
                 ) : (
@@ -171,16 +166,20 @@ export default function Home() {
                           {`$${p.price} | Stock ${p.quantity} items`}
                         </li>
                         <div className="d-flex mt-2 mb-2">
-                        <button className="btn btn-sm btn-secondary W-50">ADD TO CART</button>
-                        <button className="btn btn-sm btn-secondary W-50 ms-2">SEE MORE</button>
+                          <button className="btn btn-sm btn-secondary W-50">
+                            ADD TO CART
+                          </button>
+                          <button className="btn btn-sm btn-secondary W-50 ms-2">
+                            SEE MORE
+                          </button>
                         </div>
                       </ul>
                     </Link>
                   ))
                 )}
-              </div>
+              </div>}
             </div>
-            {products && products.length < total && products.length!==0 && (
+            {products && products.length < total &&(
               <div className="text-center m-4">
                 <button
                   className="btn bg-transparent text-white fw-bolder fs-4"
@@ -189,14 +188,13 @@ export default function Home() {
                     setPage(page + 1);
                   }}
                 >
-                {loading ? <Loading/> : <TfiReload/>}
+                  {loading ? <Loading /> : <TfiReload />}
                 </button>
               </div>
             )}
           </div>
         </div>
       </div>
-    </Layout> }
-    </>
+    </Layout>
   );
 }

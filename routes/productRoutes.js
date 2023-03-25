@@ -8,6 +8,7 @@ import {
   perPageProduct,
   photoController,
   productFilter,
+  searchProductController,
   totalProduct,
   updateProductController,
 } from "../controllers/productControllers.js";
@@ -50,5 +51,7 @@ router.post("/product-filter", productFilter);
 router.get("/product-count", totalProduct);
 // per page list product
 router.get("/product-list/:page", perPageProduct);
+// Search product 
+router.get("/search/:keyword",searchProductController)
 
 export default router;
