@@ -1,44 +1,40 @@
-
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #343a40;
 }
-::-webkit-scrollbar{
+::-webkit-scrollbar {
   display: none;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
 /* Navbar */
 
-.active{
+.active {
   border-bottom: 2px solid #000;
 }
 
-
 /* Navbar End */
-
 
 /* Footer */
 
-.footer a{
-  text-decoration: none ;
-  padding: 10px ;
+.footer a {
+  text-decoration: none;
+  padding: 10px;
   color: #fff;
-
 }
 
 /* Footer End */
 
 /* HomePage */
-.HomePage{
+.HomePage {
   /* overflow: hidden; */
   word-wrap: break-word;
   width: 100%;
@@ -46,14 +42,14 @@ code {
   color: #fff;
 }
 
-.main{
+.main {
   width: 100%;
   min-height: 100vh;
 }
 
 /* Register */
 
-.register{
+.register {
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -61,15 +57,14 @@ code {
   width: 100%;
   min-height: 90vh;
 }
-.register form{
+.register form {
   width: 500px;
-
 }
 /* Register End */
 
 /* Login */
 
-.login{
+.login {
   width: 100vw;
   min-height: 90vh;
   display: flex;
@@ -79,13 +74,13 @@ code {
 }
 
 .form-control:focus {
-  border-color: rgb(255,193,7);
-  box-shadow: 0 0 0 0.1rem rgba(255, 193, 7,0.6);
-} 
+  border-color: rgb(255, 193, 7);
+  box-shadow: 0 0 0 0.1rem rgba(255, 193, 7, 0.6);
+}
 /* Login End */
 
 /* Spin */
-.spin{
+.spin {
   width: 100%;
   height: 100vh;
   display: flex;
@@ -95,7 +90,7 @@ code {
 }
 
 /* forget password */
-.forget-password{
+.forget-password {
   width: 100%;
   min-height: 90vh;
   display: flex;
@@ -103,7 +98,7 @@ code {
   align-items: center;
   justify-content: flex-start;
 }
-.forget-password-cont{
+.forget-password-cont {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -116,7 +111,7 @@ code {
   /* padding: 30px 50px; */
   padding-top: 5px;
   text-align: center;
-  background: rgba(255, 255, 255,0);
+  background: rgba(255, 255, 255, 0);
   border-radius: 4px;
   display: flex;
   flex-direction: column;

@@ -4,17 +4,20 @@ import "./index.css";
 import App from "./App";
 // import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
-import { AuthProvider } from "./context/AuthContext";
-import { SearchProvider } from "./context/SearchContext.js"
+import { AuthProvider } from "./context/AuthContext.js";
+import { SearchProvider } from "./context/SearchContext.js";
+import { DetailProvider } from "./context/ProductDetail.js";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <AuthProvider>
     <SearchProvider>
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
-  </SearchProvider>
+      <DetailProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </DetailProvider>
+    </SearchProvider>
   </AuthProvider>
 );
 // If you want to start measuring performance in your app, pass a function

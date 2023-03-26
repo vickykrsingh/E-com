@@ -257,28 +257,30 @@ export const perPageProduct = async (req, res) => {
   }
 };
 
-// Search Product Controller 
+// Search Product Controller
 
-export const searchProductController = async (req,res) => {
+export const searchProductController = async (req, res) => {
   try {
     const { keyword } = req.params;
-    const products = await productModel.find({
-      $or:[
-        {name:{$regex:keyword , $options:"i"}},
-        {description:{$regex:keyword , $options:"i"}}
-      ]
-    }).select("-photo")
+    const products = await productModel
+      .find({
+        $or: [
+          { name: { $regex: keyword, $options: "i" } },
+          { description: { $regex: keyword, $options: "i" } },
+        ],
+      })
+      .select("-photo");
     res.status(200).send({
-      success:true,
-      message:'Search Result',
+      success: true,
+      message: "Search Result",
       products,
-    })
+    });
   } catch (error) {
     console.log(error);
     res.status(400).send({
-      success:false,
-      message:'Error while searching product',
-      error:error.message,
-    })
+      success: false,
+      message: "Error while searching product",
+      error: error.message,
+    });
   }
-}
+};

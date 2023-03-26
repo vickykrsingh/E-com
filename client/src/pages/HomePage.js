@@ -6,6 +6,8 @@ import { prices } from "../components/Prices.js";
 import { Radio } from "antd";
 import { TfiReload } from "react-icons/tfi";
 import Loading from "../components/Loading.js";
+import AddToCart from "../components/Buttons/AddToCart";
+import SeeMore from "../components/Buttons/SeeMore";
 
 export default function Home() {
   const [products, setProducts] = useState([]);
@@ -27,9 +29,9 @@ export default function Home() {
 
   const getAllProduct = async (req, res) => {
     try {
-      setLoading(true)
+      setLoading(true);
       const { data } = await axios.get(`/api/v1/product/product-list/${page}`);
-      setLoading(false)
+      setLoading(false);
       if (data?.success) {
         setProducts(data?.products);
       }
@@ -37,7 +39,6 @@ export default function Home() {
       console.log(error);
     }
   };
-
 
   const fetchAllCategory = async () => {
     try {
@@ -139,47 +140,49 @@ export default function Home() {
           <div className="col-lg-9">
             <div className="container pt-2">
               <h4>All Products</h4>
-              {loading ? <Loading/> : <div className="row d-flex justify-content-around">
-                {products.length === 0 ? (
-                  <h1 className="text-danger text-center">No Products Found</h1>
-                ) : (
-                  products.map((p) => (
-                    <Link
-                      to={`/dashboard/admin/product/${p._id}`}
-                      className="card bg-dark p-1 col-lg-4 col-md-6 col-sm-12 m-2 text-decoration-none text-white"
-                      style={{ width: "17rem", height: "26rem" }}
-                      key={p._id}
-                    >
-                      <img
-                        className="card-img-top"
-                        src={`/api/v1/product/product-photo/${p._id}`}
-                        alt="Card_image_cap"
-                      />
-                      <div className="card-body p-1">
-                        <h5 className="card-title">{p.name}</h5>
-                        <p className="card-text fw-light">
-                          {p.description.substring(0, 30)}...
-                        </p>
-                      </div>
-                      <ul className="list-group list-group-flush">
-                        <li className="list-group-item bg-dark text-white p-1 fw-bold">
-                          {`$${p.price} | Stock ${p.quantity} items`}
-                        </li>
-                        <div className="d-flex mt-2 mb-2">
-                          <button className="btn btn-sm btn-secondary W-50">
-                            ADD TO CART
-                          </button>
-                          <button className="btn btn-sm btn-secondary W-50 ms-2">
-                            SEE MORE
-                          </button>
+              {loading ? (
+                <Loading />
+              ) : (
+                <div className="row d-flex justify-content-around">
+                  {products.length === 0 ? (
+                    <h1 className="text-danger text-center">
+                      No Products Found
+                    </h1>
+                  ) : (
+                    products.map((p) => (
+                      <Link
+                        to={`/dashboard/admin/product/${p._id}`}
+                        className="card bg-dark p-1 col-lg-4 col-md-6 col-sm-12 m-2 text-decoration-none text-white"
+                        style={{ width: "17rem", height: "26rem" }}
+                        key={p._id}
+                      >
+                        <img
+                          className="card-img-top"
+                          src={`/api/v1/product/product-photo/${p._id}`}
+                          alt="Card_image_cap"
+                        />
+                        <div className="card-body p-1">
+                          <h5 className="card-title">{p.name}</h5>
+                          <p className="card-text fw-light">
+                            {p.description.substring(0, 30)}...
+                          </p>
                         </div>
-                      </ul>
-                    </Link>
-                  ))
-                )}
-              </div>}
+                        <ul className="list-group list-group-flush">
+                          <li className="list-group-item bg-dark text-white p-1 fw-bold">
+                            {`$${p.price} | Stock ${p.quantity} items`}
+                          </li>
+                          <div className="d-flex mt-2 mb-2">
+                            <AddToCart pId={p._id} />
+                            <SeeMore pId={p._id} />
+                          </div>
+                        </ul>
+                      </Link>
+                    ))
+                  )}
+                </div>
+              )}
             </div>
-            {products && products.length < total &&(
+            {products && products.length < total && (
               <div className="text-center m-4">
                 <button
                   className="btn bg-transparent text-white fw-bolder fs-4"
