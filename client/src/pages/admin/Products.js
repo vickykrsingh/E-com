@@ -90,7 +90,7 @@ function Products() {
                         <div className="card-body">
                           <h5 className="card-title">{p.name}</h5>
                           <p className="card-text">
-                            {p.description.substring(0, 30)}...
+                            {p.description.substring(0, 25)}...
                           </p>
                         </div>
                         <ul className="list-group list-group-flush">
@@ -98,8 +98,8 @@ function Products() {
                             {`$${p.price} | Stock ${p.quantity} items`}
                           </li>
                           <div className="d-flex mt-2 mb-2">
-                            <AddToCart pId={p._id} />
-                            <SeeMore pId={p._id} />
+                            <AddToCart pId={p._id} cId={p.category} />
+                            <SeeMore pId={p._id} cId={p.category} />
                           </div>
                         </ul>
                       </Link>

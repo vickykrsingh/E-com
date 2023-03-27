@@ -8,6 +8,7 @@ import { TfiReload } from "react-icons/tfi";
 import Loading from "../components/Loading.js";
 import AddToCart from "../components/Buttons/AddToCart";
 import SeeMore from "../components/Buttons/SeeMore";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
   const [products, setProducts] = useState([]);
@@ -17,6 +18,8 @@ export default function Home() {
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate()
+
 
   useEffect(() => {
     if (!checked.length || !radio.length) {
@@ -103,9 +106,15 @@ export default function Home() {
     }
   };
 
-  // useEffect(()=>{
-  //   totalProductCount()
-  // },[])
+  const handleProductDetail = async (pId,cId,e) => {
+    e.preventDefault()
+    try {
+      navigate(`/product-detail/${pId}/${cId}`);
+      // console.log(params);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <Layout title={"ECommerce - Home"}>
@@ -151,7 +160,11 @@ export default function Home() {
                   ) : (
                     products.map((p) => (
                       <Link
-                        to={`/dashboard/admin/product/${p._id}`}
+                        // to={`/dashboard/admin/product/${p._id}`}
+                        onClick={(e)=>{
+                          e.preventDefault()
+                          handleProductDetail(p._id,p.category,e)
+                        }}
                         className="card bg-dark p-1 col-lg-4 col-md-6 col-sm-12 m-2 text-decoration-none text-white"
                         style={{ width: "17rem", height: "26rem" }}
                         key={p._id}
@@ -164,16 +177,19 @@ export default function Home() {
                         <div className="card-body p-1">
                           <h5 className="card-title">{p.name}</h5>
                           <p className="card-text fw-light">
-                            {p.description.substring(0, 30)}...
+                            {p.description.substring(0, 25)}...
                           </p>
                         </div>
                         <ul className="list-group list-group-flush">
                           <li className="list-group-item bg-dark text-white p-1 fw-bold">
                             {`$${p.price} | Stock ${p.quantity} items`}
                           </li>
+                          {/* <li className="list-group-item bg-dark text-white p-1 fw-bold">
+                            {p.category}
+                          </li> */}
                           <div className="d-flex mt-2 mb-2">
                             <AddToCart pId={p._id} />
-                            <SeeMore pId={p._id} />
+                            <SeeMore pId={p._id} cId={p.category} />
                           </div>
                         </ul>
                       </Link>

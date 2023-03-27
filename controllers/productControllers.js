@@ -284,3 +284,25 @@ export const searchProductController = async (req, res) => {
     });
   }
 };
+
+// Similar Products 
+
+export const similarProduct = async (req,res) => {
+  try {
+    const cid = req.params.cId;
+    const products = await productModel.find({category:cid})
+    res.status(200).send({
+      success:true,
+      message:'Similar Product fetched successfully.',
+      products
+    })
+
+  } catch (error) {
+    console.log(error);
+    res.status(205).send({
+      success:false,
+      message:'Error while fetching similar product',
+      error:error.message
+    })
+  }
+}

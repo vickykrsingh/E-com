@@ -2,6 +2,8 @@ import React from "react";
 import Layout from "../components/Layout/Layout";
 import { useSearch } from "../context/SearchContext.js";
 import { Link } from "react-router-dom";
+import SeeMore from "../components/Buttons/SeeMore";
+import AddToCart from "../components/Buttons/AddToCart";
 
 function SearchPage() {
   const [searchProduct] = useSearch([]);
@@ -9,8 +11,8 @@ function SearchPage() {
     <Layout>
       <div className="col">
         <div className="container pt-2">
-          <h4>All Products</h4>
-          {
+          <h4 className="text-white">All Products</h4>
+          {searchProduct.length<=0 ? <h2 className="text-danger">No Product Found</h2> :
             <div className="row d-flex justify-content-around">
               {searchProduct.map((p) => (
                 <Link
@@ -27,7 +29,7 @@ function SearchPage() {
                   <div className="card-body p-1">
                     <h5 className="card-title">{p.name}</h5>
                     <p className="card-text fw-light">
-                      {p.description.substring(0, 30)}...
+                      {p.description.substring(0, 25)}...
                     </p>
                   </div>
                   <ul className="list-group list-group-flush">
@@ -35,12 +37,12 @@ function SearchPage() {
                       {`$${p.price} | Stock ${p.quantity} items`}
                     </li>
                     <div className="d-flex mt-2 mb-2">
-                      <button className="btn btn-sm btn-secondary W-50">
-                        ADD TO CART
-                      </button>
-                      <button className="btn btn-sm btn-secondary W-50 ms-2">
-                        SEE MORE
-                      </button>
+                      <div className="me-3">
+                      <SeeMore pId={p._id} cId={p.category} />
+                      </div>
+                      <div>
+                      <AddToCart pId={p._id} cId={p.category} />
+                      </div>
                     </div>
                   </ul>
                 </Link>
