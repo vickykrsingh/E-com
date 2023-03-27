@@ -110,7 +110,7 @@ function SingleProductDetail() {
                   <b>{detail?.quantity} Items left</b>
                 </p>
               )}
-              <AddToCart />
+              <AddToCart product={detail} />
             </div>
           </div>
           <div className="row">
@@ -142,7 +142,7 @@ function SingleProductDetail() {
                         {`$${s.price} | Stock ${s.quantity} items`}
                       </li>
                       <div className="d-flex mt-2 mb-2">
-                        <AddToCart pId={s._id} cId={s.category} />
+                        <AddToCart product={s} />
                         <SeeMore pId={s._id} cId={s.category} />
                       </div>
                     </ul>

@@ -2,9 +2,13 @@ import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import Search from "../Search";
+import { useCart } from "../../context/CartContext";
+import { Badge } from "antd";
+import {HiShoppingBag} from 'react-icons/hi'
 
 export default function Header() {
   const [auth, setAuth] = useAuth();
+  const [cart,setCart] = useCart()
   const handleLogout = () => {
     setAuth({
       ...auth,
@@ -91,7 +95,9 @@ export default function Header() {
               )}
               <li className="nav-item">
                 <NavLink className="nav-link" aria-current="page" to="/cart" >
-                  Cart(0)
+              <Badge count={cart.length}>
+                  <span className="mx-2"><HiShoppingBag className="text-warning" size={18} /></span>
+                </Badge>
                 </NavLink>
               </li>
               <Search/>

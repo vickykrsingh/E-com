@@ -19,7 +19,6 @@ function Search() {
       console.log(error);
     }
   };
-  // console.log(searchProduct);
 
   return (
     <div>

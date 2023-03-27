@@ -41,7 +41,7 @@ function SearchPage() {
                       <SeeMore pId={p._id} cId={p.category} />
                       </div>
                       <div>
-                      <AddToCart pId={p._id} cId={p.category} />
+                      <AddToCart product={p} />
                       </div>
                     </div>
                   </ul>

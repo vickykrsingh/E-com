@@ -8,7 +8,6 @@ import { TfiReload } from "react-icons/tfi";
 import Loading from "../components/Loading.js";
 import AddToCart from "../components/Buttons/AddToCart";
 import SeeMore from "../components/Buttons/SeeMore";
-import { useNavigate } from "react-router-dom";
 
 export default function Home() {
   const [products, setProducts] = useState([]);
@@ -18,7 +17,6 @@ export default function Home() {
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate()
 
 
   useEffect(() => {
@@ -105,17 +103,6 @@ export default function Home() {
       console.log(error);
     }
   };
-
-  const handleProductDetail = async (pId,cId,e) => {
-    e.preventDefault()
-    try {
-      navigate(`/product-detail/${pId}/${cId}`);
-      // console.log(params);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <Layout title={"ECommerce - Home"}>
       <div className="HomePage container-fluid">
@@ -160,11 +147,7 @@ export default function Home() {
                   ) : (
                     products.map((p) => (
                       <Link
-                        // to={`/dashboard/admin/product/${p._id}`}
-                        onClick={(e)=>{
-                          e.preventDefault()
-                          handleProductDetail(p._id,p.category,e)
-                        }}
+                        to={`/product-detail/${p._id}/${p.category}`}
                         className="card bg-dark p-1 col-lg-4 col-md-6 col-sm-12 m-2 text-decoration-none text-white"
                         style={{ width: "17rem", height: "26rem" }}
                         key={p._id}
@@ -184,11 +167,8 @@ export default function Home() {
                           <li className="list-group-item bg-dark text-white p-1 fw-bold">
                             {`$${p.price} | Stock ${p.quantity} items`}
                           </li>
-                          {/* <li className="list-group-item bg-dark text-white p-1 fw-bold">
-                            {p.category}
-                          </li> */}
                           <div className="d-flex mt-2 mb-2">
-                            <AddToCart pId={p._id} />
+                            <AddToCart product={p} />
                             <SeeMore pId={p._id} cId={p.category} />
                           </div>
                         </ul>
