@@ -5,42 +5,42 @@ import JWT from "jsonwebtoken";
 // registration Controller
 export const registerController = async (req, res) => {
   try {
-    const { name, email, password, phone,answer, address } = req.body;
+    const { name, email, password, phone, answer, address } = req.body;
     // checking required fields not empty
     if (!name) {
       return res.status(201).send({
-        success:false,
-        message:'Name is required'
+        success: false,
+        message: "Name is required",
       });
     }
     if (!email) {
       return res.status(201).send({
-        success:false,
-        message:'Email is required'
+        success: false,
+        message: "Email is required",
       });
     }
     if (!password) {
       return res.status(201).send({
-        success:false,
-        message:'Password is required'
+        success: false,
+        message: "Password is required",
       });
     }
     if (!phone) {
       return res.status(201).send({
-        success:false,
-        message:'Phone is required'
+        success: false,
+        message: "Phone is required",
       });
     }
     if (!address) {
       return res.status(201).send({
-        success:false,
-        message:'Address is required'
+        success: false,
+        message: "Address is required",
       });
     }
     if (!answer) {
       return res.status(201).send({
-        success:false,
-        message:'Answer is required'
+        success: false,
+        message: "Answer is required",
       });
     }
     // check existing user
@@ -133,43 +133,81 @@ export const testController = (req, res) => {
   res.send("protected route");
 };
 
-
 // Forget Password
 
-export const forgetPasswordController = async (req,res) => {
+export const forgetPasswordController = async (req, res) => {
   try {
-    const {email,answer,newPassword} = req.body;
-    if(!email){
-      return res.status(201).send({message:'Email is required'})
+    const { email, answer, newPassword } = req.body;
+    if (!email) {
+      return res.status(201).send({ message: "Email is required" });
     }
-    if(!answer){
-      return res.status(201).send({message:'answer is require'})
+    if (!answer) {
+      return res.status(201).send({ message: "answer is require" });
     }
-    if(!newPassword){
-      return res.status(201).send({message:'New Password is required'})
+    if (!newPassword) {
+      return res.status(201).send({ message: "New Password is required" });
     }
-  
-    const user = await userModel.findOne({email,answer})
-  
-    if(!user){
+
+    const user = await userModel.findOne({ email, answer });
+
+    if (!user) {
       return res.status(202).send({
-        success:false,
-        message:'Invalid Email or password'
-      })
+        success: false,
+        message: "Invalid Email or password",
+      });
     }
-  
-    const hashPass = await hashedPassword(newPassword)
-    await userModel.findByIdAndUpdate(user._id,{password:hashPass})
+
+    const hashPass = await hashedPassword(newPassword);
+    await userModel.findByIdAndUpdate(user._id, { password: hashPass });
     return res.status(200).send({
-      success:true,
-      message:'Reset Password Successfully',
-    })
+      success: true,
+      message: "Reset Password Successfully",
+    });
   } catch (error) {
-    console.log(error)
+    console.log(error);
     res.status(205).send({
-      success:false,
-      message:'something went wrong!',
-      error
-    })
+      success: false,
+      message: "something went wrong!",
+      error,
+    });
   }
-}
+};
+
+// Update Profile
+
+export const updateProfile = async (req, res) => {
+  try {
+    const { name, password, phone, address, email } = req.body;
+    const user = await userModel.findById(req.user._id);
+    // password
+    if (password && password.length < 6) {
+      return res.json({ error: "Password is required and 6 character long." });
+    }
+
+    const hashedUpdatePassword = password
+      ? await hashedPassword(password)
+      : undefined;
+    const updateUser = await userModel.findByIdAndUpdate(
+      req.user._id,
+      {
+        name: name || user.name,
+        phone: phone || user.phone,
+        password: hashedUpdatePassword || user.password,
+        address: address || user.address,
+      },
+      { new: true }
+    );
+    res.status(200).send({
+      success: true,
+      message: "Update Profile Successfully.",
+      updateUser,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success: false,
+      message: "Error while updating profile",
+      error,
+    });
+  }
+};

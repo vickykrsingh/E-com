@@ -3,7 +3,7 @@ import Layout from "../../components/Layout/Layout";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useAuth } from "../../context/AuthContext";
-import { useNavigate , useLocation, Link } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -66,7 +66,12 @@ export default function Login() {
                   />
                 </div>
 
-                <Link to='/forgetpassword' className="btn btn-outline-warning form-control fw-bold text-white mb-3">Forget Password</Link>
+                <Link
+                  to="/forgetpassword"
+                  className="btn btn-outline-warning form-control fw-bold text-white mb-3"
+                >
+                  Forget Password
+                </Link>
                 <button
                   type="submit"
                   className="btn btn-outline-warning form-control fw-bold text-white"

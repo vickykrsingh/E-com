@@ -4,13 +4,12 @@ import AdminMenu from "./AdminMenu";
 import { useNavigate } from "react-router-dom";
 import { Select } from "antd";
 
-
 import axios from "axios";
 import toast from "react-hot-toast";
 const { Option } = Select;
 
 function CreateProduct() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
   // =======================State to store from data============================
   const [photo, setPhoto] = useState("");
@@ -19,8 +18,8 @@ function CreateProduct() {
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
   const [quantity, setQuantity] = useState("");
-  const [shipping, setShipping] = useState('');
-  console.log(shipping)
+  const [shipping, setShipping] = useState("");
+  console.log(shipping);
 
   // ========================Fetch All Category=========================
   const fetchAllCategory = async () => {
@@ -40,29 +39,31 @@ function CreateProduct() {
   }, []);
   // ============================Handler to send form data to the server==============================
   const handleCreate = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
       const productData = new FormData();
-      productData.append("name",name)
-      productData.append("description",description)
-      productData.append("price",price)
-      productData.append("quantity",quantity)
-      productData.append("photo",photo)
-      productData.append("category",category)
-      productData.append("shipping",shipping)
-      const {data} = await axios.post('/api/v1/product/create-product',productData)
-      if(data?.success){
-        toast.success(data?.message)
-        navigate('/dashboard/admin/products')
-      }
-      else{
-        toast.error(data?.message)
+      productData.append("name", name);
+      productData.append("description", description);
+      productData.append("price", price);
+      productData.append("quantity", quantity);
+      productData.append("photo", photo);
+      productData.append("category", category);
+      productData.append("shipping", shipping);
+      const { data } = await axios.post(
+        "/api/v1/product/create-product",
+        productData
+      );
+      if (data?.success) {
+        toast.success(data?.message);
+        navigate("/dashboard/admin/products");
+      } else {
+        toast.error(data?.message);
       }
     } catch (error) {
-      console.log(error)
-      toast.error('Something Went Wrong')
+      console.log(error);
+      toast.error("Something Went Wrong");
     }
-  }
+  };
 
   return (
     <Layout>
@@ -150,13 +151,24 @@ function CreateProduct() {
                   onChange={(e) => setQuantity(e.target.value)}
                 />
               </div>
-              <Select bordered={false} placeholder="Select Shipping" size="large" showSearch className="form-select mb-3" onChange={(value) => { setShipping(value); }}>
-                <Option value="0" >No</Option>
-                <Option value="1" >Yes</Option>
+              <Select
+                bordered={false}
+                placeholder="Select Shipping"
+                size="large"
+                showSearch
+                className="form-select mb-3"
+                onChange={(value) => {
+                  setShipping(value);
+                }}
+              >
+                <Option value="0">No</Option>
+                <Option value="1">Yes</Option>
               </Select>
             </div>
             <div className="mb-3">
-              <button className="btn btn-warning" onClick={handleCreate} >CREATE PRODUCT</button>
+              <button className="btn btn-warning" onClick={handleCreate}>
+                CREATE PRODUCT
+              </button>
             </div>
           </div>
         </div>

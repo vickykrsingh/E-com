@@ -39,7 +39,7 @@ function SingleProductDetail() {
   useEffect(() => {
     getProduct();
     similarProduct(cId);
-  }, [pId,cId]);
+  }, [pId, cId]);
 
   var settings = {
     dots: false,
@@ -54,25 +54,25 @@ function SingleProductDetail() {
           slidesToShow: 3,
           slidesToScroll: 3,
           infinite: true,
-          dots: false
-        }
+          dots: false,
+        },
       },
       {
         breakpoint: 800,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
-          initialSlide: 2
-        }
+          initialSlide: 2,
+        },
       },
       {
         breakpoint: 520,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
-    ]
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
   return (
@@ -117,37 +117,36 @@ function SingleProductDetail() {
             <h4 className="text-center text-warning">Similar Products</h4>
             <div className="container-fluid">
               <div className="row p-4">
-                <Slider {...settings} >
-                
-                {similarProducts.map((s) => (
-                  <Link
-                    to={`/dashboard/admin/product/${s._id}`}
-                    className="card bg-dark p-1 col-lg-4 col-md-6 col-sm-12 m-2 text-decoration-none text-white mx-2"
-                    style={{ width: "17rem", height: "26rem" }}
-                    key={s._id}
-                  >
-                    <img
-                      className="card-img-top"
-                      src={`/api/v1/product/product-photo/${s._id}`}
-                      alt="Card_image_cap"
-                    />
-                    <div className="card-body p-1">
-                      <h5 className="card-title">{s.name}</h5>
-                      <p className="card-text fw-light">
-                        {s.description.substring(0, 30)}...
-                      </p>
-                    </div>
-                    <ul className="list-group list-group-flush">
-                      <li className="list-group-item bg-dark text-white p-1 fw-bold">
-                        {`$${s.price} | Stock ${s.quantity} items`}
-                      </li>
-                      <div className="d-flex mt-2 mb-2">
-                        <AddToCart product={s} />
-                        <SeeMore pId={s._id} cId={s.category} />
+                <Slider {...settings}>
+                  {similarProducts.map((s) => (
+                    <Link
+                      to={`/dashboard/admin/product/${s._id}`}
+                      className="card bg-dark p-1 col-lg-4 col-md-6 col-sm-12 m-2 text-decoration-none text-white mx-2"
+                      style={{ width: "17rem", height: "26rem" }}
+                      key={s._id}
+                    >
+                      <img
+                        className="card-img-top"
+                        src={`/api/v1/product/product-photo/${s._id}`}
+                        alt="Card_image_cap"
+                      />
+                      <div className="card-body p-1">
+                        <h5 className="card-title">{s.name}</h5>
+                        <p className="card-text fw-light">
+                          {s.description.substring(0, 30)}...
+                        </p>
                       </div>
-                    </ul>
-                  </Link>
-                ))}
+                      <ul className="list-group list-group-flush">
+                        <li className="list-group-item bg-dark text-white p-1 fw-bold">
+                          {`$${s.price} | Stock ${s.quantity} items`}
+                        </li>
+                        <div className="d-flex mt-2 mb-2">
+                          <AddToCart product={s} />
+                          <SeeMore pId={s._id} cId={s.category} />
+                        </div>
+                      </ul>
+                    </Link>
+                  ))}
                 </Slider>
               </div>
             </div>

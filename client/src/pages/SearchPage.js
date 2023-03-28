@@ -12,7 +12,9 @@ function SearchPage() {
       <div className="col">
         <div className="container pt-2">
           <h4 className="text-white">All Products</h4>
-          {searchProduct.length<=0 ? <h2 className="text-danger">No Product Found</h2> :
+          {searchProduct.length <= 0 ? (
+            <h2 className="text-danger">No Product Found</h2>
+          ) : (
             <div className="row d-flex justify-content-around">
               {searchProduct.map((p) => (
                 <Link
@@ -38,17 +40,17 @@ function SearchPage() {
                     </li>
                     <div className="d-flex mt-2 mb-2">
                       <div className="me-3">
-                      <SeeMore pId={p._id} cId={p.category} />
+                        <SeeMore pId={p._id} cId={p.category} />
                       </div>
                       <div>
-                      <AddToCart product={p} />
+                        <AddToCart product={p} />
                       </div>
                     </div>
                   </ul>
                 </Link>
               ))}
             </div>
-          }
+          )}
         </div>
       </div>
     </Layout>

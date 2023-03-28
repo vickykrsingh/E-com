@@ -83,7 +83,7 @@ function UpdateProduct() {
       if (data?.success) {
         toast.success(data?.message);
         navigate("/dashboard/admin/products");
-        await axios.get("/api/v1/product/get-product")
+        await axios.get("/api/v1/product/get-product");
       } else {
         toast.error(data?.message);
       }
@@ -94,16 +94,17 @@ function UpdateProduct() {
   };
   const handleDelete = async () => {
     try {
-      const ans = prompt('Are you sure to delete this product ?')
-      if(!ans){
-        return
+      const ans = prompt("Are you sure to delete this product ?");
+      if (!ans) {
+        return;
       }
       const { data } = await axios.delete(
-        `/api/v1/product/delete-product/${pid}`);
+        `/api/v1/product/delete-product/${pid}`
+      );
       if (data?.success) {
         toast.success(data?.message);
         navigate("/dashboard/admin/products");
-        await axios.get("/api/v1/product/get-product")
+        await axios.get("/api/v1/product/get-product");
       } else {
         toast.error(data?.message);
       }
@@ -111,7 +112,7 @@ function UpdateProduct() {
       console.log(error);
       toast.error("Something Went Wrong");
     }
-  }
+  };
 
   return (
     <Layout>

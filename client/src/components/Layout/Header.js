@@ -4,11 +4,11 @@ import { useAuth } from "../../context/AuthContext";
 import Search from "../Search";
 import { useCart } from "../../context/CartContext";
 import { Badge } from "antd";
-import {HiShoppingBag} from 'react-icons/hi'
+import { HiShoppingBag } from "react-icons/hi";
 
 export default function Header() {
   const [auth, setAuth] = useAuth();
-  const [cart,setCart] = useCart()
+  const [cart, setCart] = useCart();
   const handleLogout = () => {
     setAuth({
       ...auth,
@@ -24,11 +24,11 @@ export default function Header() {
         data-bs-theme="dark"
       >
         <div className="container-fluid">
-        <div>
-          <Link className="navbar-brand" to="/">
-            DD Products
-          </Link>
-        </div>
+          <div>
+            <Link className="navbar-brand" to="/">
+              DD Products
+            </Link>
+          </div>
           <button
             className="navbar-toggler"
             type="button"
@@ -48,31 +48,40 @@ export default function Header() {
                 </NavLink>
               </li>
               {auth.user ? (
-                  <li className="nav-item dropdown">
-                    <NavLink
-                      className="nav-link dropdown-toggle"
-                      role="button"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                      aria-current="page"
-                    >
-                      {auth?.user.name}
-                    </NavLink>
-                    <ul className="dropdown-menu">
-                      <li>
-                        <NavLink className="dropdown-item" to={`/dashboard/${auth?.user?.role === 1 ? 'admin' : 'user'}`} >
-                          Dashboard
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink className="dropdown-item" to="/login" onClick={()=>handleLogout()}>
-                          Logout
-                        </NavLink>
-                      </li>
-                    </ul>
-                  </li>
+                <li className="nav-item dropdown">
+                  <NavLink
+                    className="nav-link dropdown-toggle"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                    aria-current="page"
+                  >
+                    {auth?.user.name}
+                  </NavLink>
+                  <ul className="dropdown-menu">
+                    <li>
+                      <NavLink
+                        className="dropdown-item"
+                        to={`/dashboard/${
+                          auth?.user?.role === 1 ? "admin" : "user"
+                        }`}
+                      >
+                        Dashboard
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink
+                        className="dropdown-item"
+                        to="/login"
+                        onClick={() => handleLogout()}
+                      >
+                        Logout
+                      </NavLink>
+                    </li>
+                  </ul>
+                </li>
               ) : (
-                <div className="d-lg-flex" >
+                <div className="d-lg-flex">
                   <li className="nav-item">
                     <NavLink
                       className="nav-link"
@@ -94,13 +103,15 @@ export default function Header() {
                 </div>
               )}
               <li className="nav-item">
-                <NavLink className="nav-link" aria-current="page" to="/cart" >
-              <Badge count={cart.length}>
-                  <span className="mx-2"><HiShoppingBag className="text-warning" size={18} /></span>
-                </Badge>
+                <NavLink className="nav-link" aria-current="page" to="/cart">
+                  <Badge count={cart.length}>
+                    <span className="mx-2">
+                      <HiShoppingBag className="text-warning" size={18} />
+                    </span>
+                  </Badge>
                 </NavLink>
               </li>
-              <Search/>
+              <Search />
             </ul>
           </div>
         </div>

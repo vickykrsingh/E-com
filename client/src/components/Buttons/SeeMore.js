@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-function SeeMore({pId,cId}) {
+function SeeMore({ pId, cId }) {
   const navigate = useNavigate();
   const handleProductDetail = async (e) => {
     e.preventDefault();
@@ -15,7 +15,7 @@ function SeeMore({pId,cId}) {
     <button
       className="btn btn-sm btn-secondary W-50 ms-2"
       onClick={(e) => {
-        e.preventDefault()
+        e.preventDefault();
         handleProductDetail(e);
       }}
     >
