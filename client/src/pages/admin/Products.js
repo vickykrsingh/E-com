@@ -95,7 +95,7 @@ function Products() {
                         </div>
                         <ul className="list-group list-group-flush">
                           <li className="list-group-item bg-dark text-white">
-                            {`$${p.price} | Stock ${p.quantity} items`}
+                          &#8377;{`${p.price} | Stock ${p.quantity} items`}
                           </li>
                           <div className="d-flex mt-2 mb-2">
                             <AddToCart pId={p._id} cId={p.category} />

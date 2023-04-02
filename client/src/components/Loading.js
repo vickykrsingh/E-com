@@ -1,11 +1,9 @@
 import React from "react";
-import { Spin } from "antd";
-
+import { PacmanLoader } from 'react-spinners'
 function Loading() {
   return (
     <div className="loading">
-      <Spin />
-      <h3 className="text-white">Please Wait...</h3>
+      <PacmanLoader color="#36d7b7" />
     </div>
   );
 }

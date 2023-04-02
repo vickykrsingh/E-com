@@ -45,24 +45,33 @@ function SingleProductDetail() {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 4,
+    slidesToShow: 1,
     slidesToScroll: 1,
+    swipeToSlide: true,
+    variableWidth:true,
     responsive: [
       {
-        breakpoint: 1024,
+        breakpoint: 1124,
         settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
+          slidesToShow: 1,
+          slidesToScroll: 1,
           infinite: true,
           dots: false,
         },
       },
       {
-        breakpoint: 800,
+        breakpoint: 900,
         settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
+          slidesToShow: 1,
+          slidesToScroll: 1,
           initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 720,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
         },
       },
       {
@@ -99,7 +108,7 @@ function SingleProductDetail() {
               </p>
 
               <p>
-                <b>Price : </b>${detail?.price}
+                <b className="fs-3 text-success">Price : </b><span className="fs-3 fw-bolder text-success" >&#8377;{detail?.price}</span>
               </p>
               {detail.quantity < 10 ? (
                 <p className="text-danger">
@@ -110,38 +119,39 @@ function SingleProductDetail() {
                   <b>{detail?.quantity} Items left</b>
                 </p>
               )}
-              <AddToCart product={detail} />
+              <AddToCart product={detail} width={5} height={3} />
             </div>
           </div>
           <div className="row">
-            <h4 className="text-center text-warning">Similar Products</h4>
-            <div className="container-fluid">
+            <h4 className="text-center text-warning my-3">Similar Products</h4>
+            <div className="container-fluid mt-3">
               <div className="row p-4">
-                <Slider {...settings}>
+                <Slider {...settings} >
                   {similarProducts.map((s) => (
                     <Link
                       to={`/dashboard/admin/product/${s._id}`}
                       className="card bg-dark p-1 col-lg-4 col-md-6 col-sm-12 m-2 text-decoration-none text-white mx-2"
-                      style={{ width: "17rem", height: "26rem" }}
+                      style={{ width: "16rem", height: "26rem" }}
                       key={s._id}
                     >
                       <img
                         className="card-img-top"
+                        style={{width:'15rem'}}
                         src={`/api/v1/product/product-photo/${s._id}`}
                         alt="Card_image_cap"
                       />
                       <div className="card-body p-1">
                         <h5 className="card-title">{s.name}</h5>
                         <p className="card-text fw-light">
-                          {s.description.substring(0, 30)}...
+                          {s.description.substring(0, 25)}...
                         </p>
                       </div>
                       <ul className="list-group list-group-flush">
                         <li className="list-group-item bg-dark text-white p-1 fw-bold">
-                          {`$${s.price} | Stock ${s.quantity} items`}
+                        &#8377;{`${s.price} | Stock ${s.quantity} items`}
                         </li>
                         <div className="d-flex mt-2 mb-2">
-                          <AddToCart product={s} />
+                          <AddToCart product={s} width={2} height={1} />
                           <SeeMore pId={s._id} cId={s.category} />
                         </div>
                       </ul>

@@ -7,10 +7,12 @@ import { AuthProvider } from "./context/AuthContext.js";
 import { SearchProvider } from "./context/SearchContext.js";
 import { DetailProvider } from "./context/ProductDetail.js";
 import { CartProvider } from "./context/CartContext";
+import { GlobalLoadingProvider } from "./context/GlobalLoading";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <AuthProvider>
+    <GlobalLoadingProvider>
     <CartProvider>
       <SearchProvider>
         <DetailProvider>
@@ -20,5 +22,6 @@ root.render(
         </DetailProvider>
       </SearchProvider>
     </CartProvider>
+    </GlobalLoadingProvider>
   </AuthProvider>
 );

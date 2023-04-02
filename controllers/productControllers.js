@@ -29,7 +29,7 @@ export const createProductController = async (req, res) => {
       return res.status(201).send({ message: "Shipping Status is required" });
     }
     if (photo && photo.size > 1000000) {
-      return res.status(201).send({ message: "Product Photo is required" });
+      return res.status(201).send({ message: "Size of Photo Must less than 1MB" });
     }
 
     const product = new productModel({ ...req.fields, slug: slugify(name) });
@@ -63,7 +63,7 @@ export const getAllProductController = async (req, res) => {
       .find({})
       .populate("category")
       .select("-photo")
-      .limit(6)
+      .limit(8)
       .sort({ createdAt: -1 });
     res.status(201).send({
       success: true,
@@ -234,7 +234,7 @@ export const totalProduct = async (req, res) => {
 
 export const perPageProduct = async (req, res) => {
   try {
-    const perPageProductLimit = 6;
+    const perPageProductLimit = 8;
     const currentPage = req.params.page ? req.params.page : 1;
 
     const products = await productModel
@@ -290,7 +290,7 @@ export const searchProductController = async (req, res) => {
 export const similarProduct = async (req, res) => {
   try {
     const cid = req.params.cId;
-    const products = await productModel.find({ category: cid });
+    const products = await productModel.find({ category: cid })
     res.status(200).send({
       success: true,
       message: "Similar Product fetched successfully.",

@@ -25,7 +25,9 @@
     "mongoose": "^6.10.0",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.20",
+    "razorpay": "^2.8.6",
     "react-hot-toast": "^2.4.0",
+    "react-spinners": "^0.13.8",
     "slugify": "^1.6.5"
   }
 }

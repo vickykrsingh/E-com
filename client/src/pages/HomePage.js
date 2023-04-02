@@ -8,6 +8,7 @@ import { TfiReload } from "react-icons/tfi";
 import Loading from "../components/Loading.js";
 import AddToCart from "../components/Buttons/AddToCart";
 import SeeMore from "../components/Buttons/SeeMore";
+import { useGlobalLoading } from "../context/GlobalLoading";
 
 export default function Home() {
   const [products, setProducts] = useState([]);
@@ -17,21 +18,28 @@ export default function Home() {
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [globalLoading, setGlobalLoading] = useGlobalLoading();
 
   useEffect(() => {
     if (!checked.length || !radio.length) {
-      getAllProduct();
       totalProductCount();
     }
     fetchAllCategory();
     // eslint-disable-next-line
   }, [checked.length, radio.length]);
 
+  useEffect(() => {
+    getAllProduct();
+    // eslint-disable-next-line
+  }, []);
+
   const getAllProduct = async (req, res) => {
     try {
       setLoading(true);
+      setGlobalLoading(true);
       const { data } = await axios.get(`/api/v1/product/product-list/${page}`);
       setLoading(false);
+      setGlobalLoading(false);
       if (data?.success) {
         setProducts(data?.products);
       }
@@ -103,96 +111,129 @@ export default function Home() {
     }
   };
   return (
-    <Layout title={"ECommerce - Home"}>
-      <div className="HomePage container-fluid">
-        <div className="row">
-          <div className="col-lg-3">
-            <h4 className="pt-2 mb-3">Filter by Category</h4>
-            {category?.map((c) => (
-              <div className="form-check" key={c._id}>
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  value={c.slug}
-                  onChange={(e) => {
-                    handleCategoryFilter(e.target.checked, c._id);
-                  }}
-                />
-                <label className="form-check-label">{c.name}</label>
-              </div>
-            ))}
-            <h4 className="pt-2 mb-3">Filter by Prices</h4>
-            <Radio.Group onChange={(e) => setRadio(e.target.value)}>
-              {prices.map((p) => (
-                <div key={p._id}>
-                  <Radio value={p.array} className="text-white">
-                    {p.name}
-                  </Radio>
-                </div>
-              ))}
-            </Radio.Group>
-          </div>
-          <div className="col-lg-9">
-            <div className="container pt-2">
-              <h4>All Products</h4>
-              {loading ? (
-                <Loading />
-              ) : (
-                <div className="row d-flex justify-content-around">
-                  {products.length === 0 ? (
-                    <h1 className="text-danger text-center">
-                      No Products Found
-                    </h1>
-                  ) : (
-                    products.map((p) => (
-                      <Link
-                        to={`/product-detail/${p._id}/${p.category}`}
-                        className="card bg-dark p-1 col-lg-4 col-md-6 col-sm-12 m-2 text-decoration-none text-white"
-                        style={{ width: "17rem", height: "26rem" }}
-                        key={p._id}
+    <>
+      <Layout title={"ECommerce - Home"}>
+        {globalLoading ? (
+          <Loading />
+        ) : (
+          <div className="HomePage container-fluid">
+            <div className="row">
+              <div className="col-lg-12 filter-section">
+                <div className="accordion my-2" id="accordionExample">
+                  <div className="accordion-item">
+                    <h2 className="accordion-header" id="headingOne">
+                      <button
+                        className="accordion-button bg-dark"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#collapseOne"
+                        aria-expanded="true"
+                        aria-controls="collapseOne"
+                        
                       >
-                        <img
-                          className="card-img-top"
-                          src={`/api/v1/product/product-photo/${p._id}`}
-                          alt="Card_image_cap"
-                        />
-                        <div className="card-body p-1">
-                          <h5 className="card-title">{p.name}</h5>
-                          <p className="card-text fw-light">
-                            {p.description.substring(0, 25)}...
-                          </p>
-                        </div>
-                        <ul className="list-group list-group-flush">
-                          <li className="list-group-item bg-dark text-white p-1 fw-bold">
-                            {`$${p.price} | Stock ${p.quantity} items`}
-                          </li>
-                          <div className="d-flex mt-2 mb-2">
-                            <AddToCart product={p} />
-                            <SeeMore pId={p._id} cId={p.category} />
+                        Filter Product
+                      </button>
+                    </h2>
+                    <div
+                      id="collapseOne"
+                      className="accordion-collapse collapse bg-dark"
+                      aria-labelledby="headingOne"
+                      data-bs-parent="#accordionExample"
+                    >
+                      <div className="accordion-body bg-dark">
+                        <div className="d-lg-flex">
+                        {category?.map((c) => (
+                          <div className="form-check mx-2" key={c._id}>
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                              value={c.slug}
+                              onChange={(e) => {
+                                handleCategoryFilter(e.target.checked, c._id);
+                              }}
+                            />
+                            <label className="form-check-label">{c.name}</label>
                           </div>
-                        </ul>
-                      </Link>
-                    ))
+                        ))}
+                        </div>
+                        <br/>
+                        <Radio.Group onChange={(e) => setRadio(e.target.value)} className="d-md-flex">
+                          {prices.map((p) => (
+                            <div key={p._id} className="mx-2">
+                              <Radio value={p.array} className="text-white">
+                                {p.name}
+                              </Radio>
+                            </div>
+                          ))}
+                        </Radio.Group>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="col-lg-12">
+                <div className="container pt-2">
+                  <h4>All Products</h4>
+                  {loading ? (
+                    <Loading />
+                  ) : (
+                    <div className="row d-flex justify-content-around">
+                      {products.length === 0 ? (
+                        <h1 className="text-danger text-center">
+                          No Products Found
+                        </h1>
+                      ) : (
+                        products.map((p) => (
+                          <Link
+                            to={`/product-detail/${p._id}/${p.category}`}
+                            className="card bg-dark p-1 col-lg-4 col-md-6 col-sm-12 m-2 text-decoration-none text-white"
+                            style={{ width: "17rem", height: "26rem" }}
+                            key={p._id}
+                          >
+                            <img
+                              className="card-img-top rounded-2"
+                              src={`/api/v1/product/product-photo/${p._id}`}
+                              alt="Card_image_cap"
+                            />
+                            <div className="card-body p-1">
+                              <h5 className="card-title">{p.name}</h5>
+                              <p className="card-text fw-light">
+                                {p.description.substring(0, 25)}...
+                              </p>
+                            </div>
+                            <ul className="list-group list-group-flush p-0 m-0">
+                              <li className="list-group-item bg-dark text-white p-1 fw-bold card-footer p-0 m-0">
+                              &#8377;{`${p.price} | Stock ${p.quantity} items`}
+                              </li>
+                              <div className="d-flex mt-2 mb-2">
+                                <AddToCart product={p} />
+                                <SeeMore pId={p._id} cId={p.category} />
+                              </div>
+                            </ul>
+                          </Link>
+                        ))
+                      )}
+                    </div>
                   )}
                 </div>
-              )}
-            </div>
-            {products && products.length < total && (
-              <div className="text-center m-4">
-                <button
-                  className="btn bg-transparent text-white fw-bolder fs-4"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setPage(page + 1);
-                  }}
-                >
-                  {loading ? <Loading /> : <TfiReload />}
-                </button>
+                {products && products.length < total && (
+                  <div className="text-center m-4">
+                    <button
+                      className="btn bg-transparent text-white fw-bolder fs-4"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setPage(page + 1);
+                      }}
+                    >
+                      {loading ? <Loading /> : <TfiReload />}
+                    </button>
+                  </div>
+                )}
               </div>
-            )}
+            </div>
           </div>
-        </div>
-      </div>
-    </Layout>
+        )}
+      </Layout>
+    </>
   );
 }

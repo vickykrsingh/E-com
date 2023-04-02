@@ -21,7 +21,7 @@ function Search() {
   };
 
   return (
-    <div>
+    <div className="ml-auto">
       <form
         className="d-flex ms-4 mt-1 mb-1"
         role="search"

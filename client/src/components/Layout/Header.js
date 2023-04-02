@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import Search from "../Search";
 import { useCart } from "../../context/CartContext";
 import { Badge } from "antd";
-import { HiShoppingBag } from "react-icons/hi";
+import { BsCartFill } from 'react-icons/bs'
 
 export default function Header() {
   const [auth, setAuth] = useAuth();
@@ -20,8 +20,7 @@ export default function Header() {
   return (
     <>
       <nav
-        className="navbar navbar-expand-lg bg-body-tertiary bg-primary"
-        data-bs-theme="dark"
+        className="navbar navbar-expand-lg bg-body-tertiary bg-dark"
       >
         <div className="container-fluid">
           <div>
@@ -37,10 +36,11 @@ export default function Header() {
             aria-controls="navbarTogglerDemo01"
             aria-expanded="false"
             aria-label="Toggle navigation"
-          >
+            >
             <span className="navbar-toggler-icon" />
           </button>
           <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <>
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
                 <NavLink className="nav-link" aria-current="page" to="/">
@@ -102,17 +102,21 @@ export default function Header() {
                   </li>
                 </div>
               )}
-              <li className="nav-item">
-                <NavLink className="nav-link" aria-current="page" to="/cart">
-                  <Badge count={cart.length}>
+              
+              <li className="py-2 py-lg-0">
+              <Search />
+              </li>
+            </ul>
+              <li className="nav-item" style={{listStyle:'none'}}>
+                <NavLink className="nav-link me-2" aria-current="page" to="/cart">
+                  <Badge count={cart?.length}>
                     <span className="mx-2">
-                      <HiShoppingBag className="text-warning" size={18} />
+                      <BsCartFill className="text-warning" size={30} />
                     </span>
                   </Badge>
                 </NavLink>
               </li>
-              <Search />
-            </ul>
+          </>
           </div>
         </div>
       </nav>

@@ -68,3 +68,73 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+
+
+
+
+
+
+
+Ecommerce Website using MERN Stack :-
+
+This is an Ecommerce website built using the MERN stack, which allows customers to browse products, add items to cart, and complete transactions. It features a robust back-end built using Node.js and Express.js, and a dynamic front-end built using React and Bootstrap. The website uses MongoDB as its database and implements REST APIs to communicate between the front-end and back-end.
+
+
+
+Features-:
+
+(i)User authentication:
+Customers can create accounts, log in, and securely access their accounts.
+(ii)Product browsing: 
+Customers can browse a variety of products, filter by categories, and view detailed product information.
+(iii)Shopping cart: 
+Customers can add items to their shopping cart, edit cart items, and complete transactions.
+(iv)Payment integration: 
+Customers can securely complete transactions using Razorpay payment gateway integration.
+(v)Product search: 
+Customers can search for products using keywords, and view search results.
+(vi)Responsive design: 
+The website is designed to be responsive across all devices, ensuring a seamless user experience.
+
+
+(i)Technologies Used :-
+(ii)React
+(iii)Node.js
+(iv)Express.js
+(v)MongoDB
+(vi)Razorpay API
+(vii)Bootstrap
+
+
+Installation and Setup :- 
+
+(i)Clone the repository
+(ii)Install dependencies by running npm install in both the client and server directories
+(iii)Create a .env file in the server directory with the following environment variables:
+(iv)MONGODB_URI: MongoDB database URI
+(v)JWT_SECRET: Secret key for JWT authentication
+(vi)RAZORPAY_SECRET_KEY: RAZORPAY secret key for payment integration
+(vii)Run npm run dev in the server directory to start the development server.
+
+
+Contribution :-
+Contributions are welcome! If you'd like to contribute, please fork the repository and submit a pull request.
+
+License :-
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+Make sure to customize this README file to your specific project, including any relevant instructions for installation, usage, and contribution guidelines.
+
+Project Status :-
+This project is currently in development. The basic features have been implemented, but there is still work to be done. Some planned features include:
+
+(i)Admin dashboard: An admin dashboard to manage products(CRUD), orders(CRUD), and customers.
+(ii)Reviews and ratings: Allow customers to leave reviews and ratings for products.
+Acknowledgements
+This project was built using various online resources and tutorials, including:
+
+
+Contact :-
+If you have any questions or suggestions, please feel free to contact me at vickykrsingh27@gmail.com. Thank you for your interest in this project!

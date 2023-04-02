@@ -36,14 +36,14 @@ function SearchPage() {
                   </div>
                   <ul className="list-group list-group-flush">
                     <li className="list-group-item bg-dark text-white p-1 fw-bold">
-                      {`$${p.price} | Stock ${p.quantity} items`}
+                    &#8377;{`${p.price} | Stock ${p.quantity} items`}
                     </li>
                     <div className="d-flex mt-2 mb-2">
                       <div className="me-3">
                         <SeeMore pId={p._id} cId={p.category} />
                       </div>
                       <div>
-                        <AddToCart product={p} />
+                        <AddToCart product={p} width={2} height={1} />
                       </div>
                     </div>
                   </ul>
