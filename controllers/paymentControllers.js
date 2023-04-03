@@ -16,7 +16,7 @@ export const checkoutController = async (req, res) => {
 };
 
 export const paymentVerification = (req, res) => {
-  const { payment_id, order_id, signature, cart , tot } = req.body;
+  const { payment_id, order_id, signature, cart, tot } = req.body;
 
   const body = order_id + "|" + payment_id;
 
@@ -34,103 +34,100 @@ export const paymentVerification = (req, res) => {
         payment_id: payment_id,
         order_id: order_id,
         signature: signature,
-        totalPrice:tot,
-        buyer:userId
+        totalPrice: tot,
+        buyer: userId,
       }).save();
-      await cartModel.deleteMany({})
+      await cartModel.deleteMany({});
       return userOrder;
-    }catch(error){
-      error
+    } catch (error) {
+      error;
     }
   };
-  if(signature===expectedSignature){
-    const userOrder = orderController()
+  if (signature === expectedSignature) {
+    const userOrder = orderController();
     res.status(200).send({
-      success:true,
-      userOrder
-    })
-  }else{
+      success: true,
+      userOrder,
+    });
+  } else {
     res.status(205).send({
-      success:false,
-      message:"Unauthorized Order"
-    })
+      success: false,
+      message: "Unauthorized Order",
+    });
   }
 };
 
-
-
-export const userOrderController = async (req,res) => {
+export const userOrderController = async (req, res) => {
   try {
-    const orders = await OrderModel.find({buyer:req.user._id})
+    const orders = await OrderModel.find({ buyer: req.user._id });
     res.status(200).send({
-      success:true,
-      message:"Your all orders",
+      success: true,
+      message: "Your all orders",
       orders,
-    })
+    });
   } catch (error) {
     res.status(205).send({
-      success:false,
-      message:"Error while fetching Your all orders",
+      success: false,
+      message: "Error while fetching Your all orders",
       error,
-    })
+    });
   }
-}
-export const adminAllOrder = async (req,res) => {
+};
+export const adminAllOrder = async (req, res) => {
   try {
-    const orders = await OrderModel.find({}).sort({createdAt:-1})
+    const orders = await OrderModel.find({}).sort({ createdAt: -1 });
     res.status(200).send({
-      success:true,
-      message:"Your all orders",
+      success: true,
+      message: "Your all orders",
       orders,
-    })
+    });
   } catch (error) {
     res.status(205).send({
-      success:false,
-      message:"Error while fetching Your all orders",
+      success: false,
+      message: "Error while fetching Your all orders",
       error,
-    })
+    });
   }
-}
+};
 
-
-export const orderStatusUpdate = async (req,res) => {
+export const orderStatusUpdate = async (req, res) => {
   try {
-    const {orderId} = req.params;
-    const {status} = req.body;
+    const { orderId } = req.params;
+    const { status } = req.body;
 
-    const order = await OrderModel.findByIdAndUpdate(orderId,{status:status},{new:true})
+    const order = await OrderModel.findByIdAndUpdate(
+      orderId,
+      { status: status },
+      { new: true }
+    );
     res.status(200).send({
-      success:true,
-      message:"Status Update Successfully",
+      success: true,
+      message: "Status Update Successfully",
       order,
-    })
-
+    });
   } catch (error) {
     res.status(205).send({
-      success:false,
-      message:"Error while updating Status",
+      success: false,
+      message: "Error while updating Status",
       error,
-    })
+    });
   }
-}
+};
 
-export const searchAdminOrder = async (req,res) => {
+export const searchAdminOrder = async (req, res) => {
   try {
-    const {searchKey,searchValue} = req.body;
-    console.log(searchKey,searchValue)
-
-    const order = await OrderModel.find({[searchKey]:searchValue})
+    const { searchKey, searchValue } = req.body;
+    const order = await OrderModel.find({ [searchKey]: searchValue });
     res.status(200).send({
-      success:true,
-      message:"Status Update Successfully",
+      success: true,
+      message: "Status Update Successfully",
       order,
-    })
-
+    });
   } catch (error) {
     res.status(205).send({
-      success:false,
-      message:"Error while updating Status",
+      success: false,
+      message: "Error while updating Status",
       error,
-    })
+    });
   }
-}
+};
