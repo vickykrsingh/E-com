@@ -19,7 +19,6 @@ function CreateProduct() {
   const [category, setCategory] = useState("");
   const [quantity, setQuantity] = useState("");
   const [shipping, setShipping] = useState("");
-  console.log(shipping);
 
   // ========================Fetch All Category=========================
   const fetchAllCategory = async () => {
@@ -29,7 +28,6 @@ function CreateProduct() {
         setCategories(data?.allCategory);
       }
     } catch (error) {
-      console.log(error);
       toast.error("Something Went Wrong while Fetching All Category");
     }
   };
@@ -60,7 +58,6 @@ function CreateProduct() {
         toast.error(data?.message);
       }
     } catch (error) {
-      console.log(error);
       toast.error("Something Went Wrong");
     }
   };

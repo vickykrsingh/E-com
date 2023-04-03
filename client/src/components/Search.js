@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useSearch } from "../context/SearchContext.js";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function Search() {
   const [values, setValues] = useState("");
-  const [searchProduct, setSearchProduct] = useSearch([]);
+  const [searchProduct,setSearchProduct] = useSearch([]);
   const navigate = useNavigate();
   const handleSearch = async (e) => {
     try {
@@ -16,7 +17,7 @@ function Search() {
         navigate("/search");
       }
     } catch (error) {
-      console.log(error);
+      toast.error("Request Timeout")
     }
   };
 

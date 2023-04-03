@@ -164,7 +164,6 @@ export const forgetPasswordController = async (req, res) => {
       message: "Reset Password Successfully",
     });
   } catch (error) {
-    console.log(error);
     res.status(205).send({
       success: false,
       message: "something went wrong!",
@@ -203,7 +202,6 @@ export const updateProfile = async (req, res) => {
       updateUser,
     });
   } catch (error) {
-    console.log(error);
     res.status(400).send({
       success: false,
       message: "Error while updating profile",

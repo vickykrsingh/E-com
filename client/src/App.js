@@ -22,6 +22,7 @@ import UpdateProduct from "./pages/admin/UpdateProduct";
 import Search from "./pages/SearchPage.js";
 import SingleProductDetail from "./pages/SingleProductDetail.js";
 import Cart from "./pages/Cart.js";
+import AllOrders from "./pages/admin/AllOrders";
 
 function App() {
   return (
@@ -49,6 +50,7 @@ function App() {
           <Route path="admin/product/:id" element={<UpdateProduct />} />
           <Route path="admin/products" element={<Products />} />
           <Route path="admin/all-users" element={<Users />} />
+          <Route path="admin/all-orders" element={<AllOrders />} />
         </Route>
         <Route path="/forgetpassword" element={<ForgetPassword />} />
         <Route path="/privacy" element={<Privacy />} />

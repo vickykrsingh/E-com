@@ -26,8 +26,6 @@ export const paymentVerification = (req, res) => {
     .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
     .update(body.toString())
     .digest("hex");
-  console.log("sig received ", signature);
-  console.log("sig generated ", expectedSignature);
 
   const orderController = async () => {
     try {
@@ -42,7 +40,7 @@ export const paymentVerification = (req, res) => {
       await cartModel.deleteMany({})
       return userOrder;
     }catch(error){
-      console.log(error);
+      error
     }
   };
   if(signature===expectedSignature){
@@ -70,10 +68,68 @@ export const userOrderController = async (req,res) => {
       orders,
     })
   } catch (error) {
-    console.log(error);
     res.status(205).send({
       success:false,
       message:"Error while fetching Your all orders",
+      error,
+    })
+  }
+}
+export const adminAllOrder = async (req,res) => {
+  try {
+    const orders = await OrderModel.find({}).sort({createdAt:-1})
+    res.status(200).send({
+      success:true,
+      message:"Your all orders",
+      orders,
+    })
+  } catch (error) {
+    res.status(205).send({
+      success:false,
+      message:"Error while fetching Your all orders",
+      error,
+    })
+  }
+}
+
+
+export const orderStatusUpdate = async (req,res) => {
+  try {
+    const {orderId} = req.params;
+    const {status} = req.body;
+
+    const order = await OrderModel.findByIdAndUpdate(orderId,{status:status},{new:true})
+    res.status(200).send({
+      success:true,
+      message:"Status Update Successfully",
+      order,
+    })
+
+  } catch (error) {
+    res.status(205).send({
+      success:false,
+      message:"Error while updating Status",
+      error,
+    })
+  }
+}
+
+export const searchAdminOrder = async (req,res) => {
+  try {
+    const {searchKey,searchValue} = req.body;
+    console.log(searchKey,searchValue)
+
+    const order = await OrderModel.find({[searchKey]:searchValue})
+    res.status(200).send({
+      success:true,
+      message:"Status Update Successfully",
+      order,
+    })
+
+  } catch (error) {
+    res.status(205).send({
+      success:false,
+      message:"Error while updating Status",
       error,
     })
   }

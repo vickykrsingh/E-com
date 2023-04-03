@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import Search from "../Search";
@@ -8,7 +8,7 @@ import { BsCartFill } from 'react-icons/bs'
 
 export default function Header() {
   const [auth, setAuth] = useAuth();
-  const [cart, setCart] = useCart();
+  const [cart] = useCart();
   const handleLogout = () => {
     setAuth({
       ...auth,

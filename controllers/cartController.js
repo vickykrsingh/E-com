@@ -23,7 +23,6 @@ export const cartController = async (req,res) => {
         })
 
     } catch (error) {
-        console.log(error);
         res.status(205).send({
             success:false,
             message:'Error while added to cart.',
@@ -40,7 +39,6 @@ export const getAllCart = async (req,res) => {
             cartItem
         })
     } catch (error) {
-        console.log(error);
         res.status(205).send({
             success:false,
             message:"Error while fetching cart item",
@@ -58,7 +56,6 @@ export const deleteCart = async (req,res) => {
             message:'Item deleted successfully.'
         })
     } catch (error) {
-        console.log(error);
         res.status(200).send({
             success:false,
             message:"Error while deleting cart item."

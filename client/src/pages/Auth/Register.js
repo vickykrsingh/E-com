@@ -31,7 +31,7 @@ export default function Register() {
         toast.error(data.message);
       }
     } catch (error) {
-      console.log(error);
+      toast.error("Request Timeout")
     }
   };
 

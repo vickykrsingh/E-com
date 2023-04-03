@@ -24,6 +24,12 @@ function AdminMenu() {
           All Products
         </NavLink>
         <NavLink
+          to="/dashboard/admin/all-orders"
+          className="list-group-item list-group-item-light bg-dark list-group-item-action"
+        >
+          All Orders
+        </NavLink>
+        <NavLink
           to="/dashboard/admin/all-users"
           className="list-group-item list-group-item-light bg-dark list-group-item-action"
         >

@@ -10,6 +10,7 @@ import SeeMore from "../components/Buttons/SeeMore";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import toast from "react-hot-toast";
 
 function SingleProductDetail() {
   const [detail, setDetail] = useDetail();
@@ -32,7 +33,7 @@ function SingleProductDetail() {
       const finalProduct = data.products.filter((p) => p._id !== pId);
       setSimilarProducts(finalProduct);
     } catch (error) {
-      console.log(error);
+      toast.error("Request Timeout");
     }
   };
 
@@ -48,7 +49,7 @@ function SingleProductDetail() {
     slidesToShow: 1,
     slidesToScroll: 1,
     swipeToSlide: true,
-    variableWidth:true,
+    variableWidth: true,
     responsive: [
       {
         breakpoint: 1124,
@@ -108,7 +109,10 @@ function SingleProductDetail() {
               </p>
 
               <p>
-                <b className="fs-3 text-success">Price : </b><span className="fs-3 fw-bolder text-success" >&#8377;{detail?.price}</span>
+                <b className="fs-3 text-success">Price : </b>
+                <span className="fs-3 fw-bolder text-success">
+                  &#8377;{detail?.price}
+                </span>
               </p>
               {detail.quantity < 10 ? (
                 <p className="text-danger">
@@ -124,42 +128,46 @@ function SingleProductDetail() {
           </div>
           <div className="row">
             <h4 className="text-center text-warning my-3">Similar Products</h4>
-            <div className="container-fluid mt-3">
-              <div className="row p-4">
-                <Slider {...settings} >
-                  {similarProducts.map((s) => (
-                    <Link
-                      to={`/dashboard/admin/product/${s._id}`}
-                      className="card bg-dark p-1 col-lg-4 col-md-6 col-sm-12 m-2 text-decoration-none text-white mx-2"
-                      style={{ width: "16rem", height: "26rem" }}
-                      key={s._id}
-                    >
-                      <img
-                        className="card-img-top"
-                        style={{width:'15rem'}}
-                        src={`/api/v1/product/product-photo/${s._id}`}
-                        alt="Card_image_cap"
-                      />
-                      <div className="card-body p-1">
-                        <h5 className="card-title">{s.name}</h5>
-                        <p className="card-text fw-light">
-                          {s.description.substring(0, 25)}...
-                        </p>
-                      </div>
-                      <ul className="list-group list-group-flush">
-                        <li className="list-group-item bg-dark text-white p-1 fw-bold">
-                        &#8377;{`${s.price} | Stock ${s.quantity} items`}
-                        </li>
-                        <div className="d-flex mt-2 mb-2">
-                          <AddToCart product={s} width={2} height={1} />
-                          <SeeMore pId={s._id} cId={s.category} />
+            { similarProducts.length<=0 ? <div className="container-fluid mt-3">
+                <h3 className="text-warning text-center fw-bold" >OOPs No Similar Products Found</h3>
+            </div> :
+              <div className="container-fluid mt-3">
+                <div className="row p-4">
+                  <Slider {...settings}>
+                    {similarProducts.map((s) => (
+                      <Link
+                        to={`/dashboard/admin/product/${s._id}`}
+                        className="card bg-dark p-1 col-lg-4 col-md-6 col-sm-12 m-2 text-decoration-none text-white mx-2"
+                        style={{ width: "16rem", height: "26rem" }}
+                        key={s._id}
+                      >
+                        <img
+                          className="card-img-top"
+                          style={{ width: "15rem" }}
+                          src={`/api/v1/product/product-photo/${s._id}`}
+                          alt="Card_image_cap"
+                        />
+                        <div className="card-body p-1">
+                          <h5 className="card-title">{s.name}</h5>
+                          <p className="card-text fw-light">
+                            {s.description.substring(0, 25)}...
+                          </p>
                         </div>
-                      </ul>
-                    </Link>
-                  ))}
-                </Slider>
+                        <ul className="list-group list-group-flush">
+                          <li className="list-group-item bg-dark text-white p-1 fw-bold">
+                            &#8377;{`${s.price} | Stock ${s.quantity} items`}
+                          </li>
+                          <div className="d-flex mt-2 mb-2">
+                            <AddToCart product={s} width={2} height={1} />
+                            <SeeMore pId={s._id} cId={s.category} />
+                          </div>
+                        </ul>
+                      </Link>
+                    ))}
+                  </Slider>
+                </div>
               </div>
-            </div>
+            }
           </div>
         </div>
       )}

@@ -9,6 +9,9 @@ import Loading from "../components/Loading.js";
 import AddToCart from "../components/Buttons/AddToCart";
 import SeeMore from "../components/Buttons/SeeMore";
 import { useGlobalLoading } from "../context/GlobalLoading";
+import { useAuth } from "../context/AuthContext";
+import Banner from "../components/Layout/banner1.png"
+import toast from 'react-hot-toast'
 
 export default function Home() {
   const [products, setProducts] = useState([]);
@@ -19,13 +22,13 @@ export default function Home() {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [globalLoading, setGlobalLoading] = useGlobalLoading();
+  const [auth,setAuth] = useAuth()
 
   useEffect(() => {
     if (!checked.length || !radio.length) {
       totalProductCount();
     }
     fetchAllCategory();
-    // eslint-disable-next-line
   }, [checked.length, radio.length]);
 
   useEffect(() => {
@@ -44,7 +47,7 @@ export default function Home() {
         setProducts(data?.products);
       }
     } catch (error) {
-      console.log(error);
+      toast.error("Request Timeout")
     }
   };
 
@@ -55,7 +58,7 @@ export default function Home() {
         setCategory(category?.data?.allCategory);
       }
     } catch (error) {
-      console.log(error);
+      toast.error("Request Timeout")
     }
   };
   const handleCategoryFilter = (value, id) => {
@@ -73,7 +76,7 @@ export default function Home() {
       const { data } = await axios.get("/api/v1/product/product-count");
       setTotal(data?.total);
     } catch (error) {
-      console.log(error);
+      toast.error("Request Timeout")
     }
   };
 
@@ -91,7 +94,7 @@ export default function Home() {
       const { data } = await axios.get(`/api/v1/product/product-list/${page}`);
       setProducts([...products, ...data?.products]);
     } catch (error) {
-      console.log(error);
+      toast.error("Request Timeout")
     }
   };
 
@@ -107,7 +110,7 @@ export default function Home() {
       });
       setProducts(data?.products);
     } catch (error) {
-      console.log(error);
+      toast.error("Request Timeout")
     }
   };
   return (
@@ -117,6 +120,9 @@ export default function Home() {
           <Loading />
         ) : (
           <div className="HomePage container-fluid">
+            <div className="row m-0 p-0">
+              <img src={Banner} alt="Banner" className="rounded-2 m-0 p-0" />
+            </div>
             <div className="row">
               <div className="col-lg-12 filter-section">
                 <div className="accordion my-2" id="accordionExample">
@@ -185,7 +191,7 @@ export default function Home() {
                       ) : (
                         products.map((p) => (
                           <Link
-                            to={`/product-detail/${p._id}/${p.category}`}
+                            to={auth?.user?.role===1 ? (`/dashboard/admin/product/${p._id}`) : (`/product-detail/${p._id}/${p.category}`)}
                             className="card bg-dark p-1 col-lg-4 col-md-6 col-sm-12 m-2 text-decoration-none text-white"
                             style={{ width: "17rem", height: "26rem" }}
                             key={p._id}

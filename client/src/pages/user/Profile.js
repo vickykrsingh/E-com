@@ -41,7 +41,7 @@ function Profile() {
         toast.success("Profile Update Successfully.");
       }
     } catch (error) {
-      console.log(error);
+      toast.error("Request Timeout")
     }
   };
 

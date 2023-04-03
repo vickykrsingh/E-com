@@ -1,18 +1,19 @@
-import React, { useEffect , useState } from "react";
+import React, { useState } from "react";
 import { useCart } from "../../context/CartContext";
 import toast from 'react-hot-toast'
 import axios from "axios";
 
 function AddToCart({ product , width , height }) {
-  const [cart, setCart] = useCart([]);
+  const [cart,setCart] = useCart();
   const [fire,setFire] = useState(false)
 
   const getAllCart = async () => {
     try {
       const {data} = await axios.get('/api/v1/cart/get-all-cart')
-      setCart(data.cartItem)
+      // await setCart(data?.cartItem)
+      return
     } catch (error) {
-      console.log(error)
+      toast.error('request timeout while getting all product')
     }
   }
 
@@ -35,7 +36,7 @@ function AddToCart({ product , width , height }) {
       }
 
     } catch (error) {
-      console.log(error);
+      toast.error("Timeout while adding product in your cart")
     }
   };
 

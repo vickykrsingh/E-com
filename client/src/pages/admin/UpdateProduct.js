@@ -37,9 +37,8 @@ function UpdateProduct() {
       photo && setPhoto(data.product.photo);
       setPid(data.product._id);
       setCategory(data.product.category._id);
-      console.log(data);
     } catch (error) {
-      console.log(error);
+      toast.error("Request Timeout")
     }
   };
 
@@ -56,7 +55,6 @@ function UpdateProduct() {
         setCategories(data?.allCategory);
       }
     } catch (error) {
-      console.log(error);
       toast.error("Something Went Wrong while Fetching All Category");
     }
   };
@@ -88,7 +86,6 @@ function UpdateProduct() {
         toast.error(data?.message);
       }
     } catch (error) {
-      console.log(error);
       toast.error("Something Went Wrong");
     }
   };
@@ -109,7 +106,6 @@ function UpdateProduct() {
         toast.error(data?.message);
       }
     } catch (error) {
-      console.log(error);
       toast.error("Something Went Wrong");
     }
   };

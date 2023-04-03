@@ -1,4 +1,5 @@
 import React from "react";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 function SeeMore({ pId, cId , width , height}) {
   const navigate = useNavigate();
@@ -7,7 +8,7 @@ function SeeMore({ pId, cId , width , height}) {
     try {
       navigate(`/product-detail/${pId}/${cId}`);
     } catch (error) {
-      console.log(error);
+      toast.error("Request Timeout")
     }
   };
 

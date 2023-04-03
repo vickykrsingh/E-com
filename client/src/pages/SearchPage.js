@@ -4,9 +4,11 @@ import { useSearch } from "../context/SearchContext.js";
 import { Link } from "react-router-dom";
 import SeeMore from "../components/Buttons/SeeMore";
 import AddToCart from "../components/Buttons/AddToCart";
+import { useAuth } from "../context/AuthContext";
 
 function SearchPage() {
-  const [searchProduct] = useSearch([]);
+  const [searchProduct,setSearchProduct] = useSearch([]);
+  const [auth,setAuth] = useAuth()
   return (
     <Layout>
       <div className="col">
@@ -18,7 +20,7 @@ function SearchPage() {
             <div className="row d-flex justify-content-around">
               {searchProduct.map((p) => (
                 <Link
-                  to={`/dashboard/admin/product/${p._id}`}
+                  to={auth?.user?.role===1 ? (`/dashboard/admin/product/${p._id}`) : (`/product-detail/${p._id}/${p.category}`)}
                   className="card bg-dark p-1 col-lg-4 col-md-6 col-sm-12 m-2 text-decoration-none text-white"
                   style={{ width: "17rem", height: "26rem" }}
                   key={p._id}

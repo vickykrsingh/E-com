@@ -57,8 +57,4 @@ app.get('/api/get-key',(req,res)=>{
 })
 
 // Server listening
-app.listen(PORT, () => {
-  console.log(
-    `Server is running on ${Mode} mode and the port no ${PORT}`.bgCyan.white
-  );
-});
+app.listen(PORT);

@@ -21,7 +21,6 @@ function CreateCategory() {
         setCategory(category.data.allCategory);
       }
     } catch (error) {
-      console.log(error);
       toast.error("Something Went Wrong while Fetching All Category");
     }
   };
@@ -37,7 +36,6 @@ function CreateCategory() {
         setName("");
       }
     } catch (error) {
-      console.log(error);
       toast.error("Error while Creating Category");
     }
   };
@@ -53,7 +51,6 @@ function CreateCategory() {
         fetchAllCategory();
       }
     } catch (error) {
-      console.log(error);
       toast.error("Error While Deleting Category");
     }
   };
@@ -74,7 +71,6 @@ function CreateCategory() {
         fetchAllCategory();
       }
     } catch (error) {
-      console.log(error);
       toast.error("Error While Updating Category");
     }
   };

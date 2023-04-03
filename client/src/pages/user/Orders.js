@@ -5,6 +5,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useAuth } from "../../context/AuthContext";
 import Loading from "./../../components/Loading.js";
+import moment from "moment";
 import { useNavigate } from "react-router-dom";
 
 function Orders() {
@@ -16,13 +17,11 @@ function Orders() {
     try {
       setLoading(true);
       const { data } = await axios.get("/api/v1/payment/all-order");
-      console.log(data);
       if (data?.success) {
         setOrder(data?.orders);
         setLoading(false);
       }
     } catch (error) {
-      console.log(error);
       toast.error("Error while fetching your all order");
     }
   };
@@ -73,7 +72,7 @@ function Orders() {
                       </div>
                       <div>
                         <b>Time : </b>
-                        {o.createdAt}
+                        {moment(o.createdAt).fromNow()}
                       </div>
                     </div>
                     <div className="col-12 p-0">

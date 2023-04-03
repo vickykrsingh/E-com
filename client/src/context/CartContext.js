@@ -1,5 +1,6 @@
 import { useState, createContext, useContext, useEffect } from "react";
 import axios from "axios";
+import toast from 'react-hot-toast'
 
 const CartContext = createContext();
 
@@ -10,7 +11,7 @@ const CartProvider = ({ children }) => {
       const {data} = await axios.get('/api/v1/cart/get-all-cart')
       setCart(data.cartItem)
     } catch (error) {
-      console.log(error)
+      toast.error("Request Timeout")
     }
   }
 

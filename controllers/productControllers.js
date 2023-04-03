@@ -48,7 +48,6 @@ export const createProductController = async (req, res) => {
       product,
     });
   } catch (error) {
-    console.log(error);
     res.status(205).send({
       success: false,
       message: "Internal Server Error.",
@@ -72,7 +71,6 @@ export const getAllProductController = async (req, res) => {
       products,
     });
   } catch (error) {
-    console.log(error);
     res.status(205).send({
       success: false,
       message: "Error While fetching All Product",
@@ -183,7 +181,6 @@ export const updateProductController = async (req, res) => {
       product,
     });
   } catch (error) {
-    console.log(error);
     res.status(205).send({
       success: false,
       message: "Error While updating product.",
@@ -204,7 +201,6 @@ export const productFilter = async (req, res) => {
       products,
     });
   } catch (error) {
-    console.log(error);
     res.status(400).send({
       success: false,
       message: "Something went wrong while filtering product",
@@ -248,7 +244,6 @@ export const perPageProduct = async (req, res) => {
       products,
     });
   } catch (error) {
-    console.log(error);
     res.status(400).send({
       success: false,
       message: "Error While fetching per page product",
@@ -276,7 +271,6 @@ export const searchProductController = async (req, res) => {
       products,
     });
   } catch (error) {
-    console.log(error);
     res.status(400).send({
       success: false,
       message: "Error while searching product",
@@ -297,7 +291,6 @@ export const similarProduct = async (req, res) => {
       products,
     });
   } catch (error) {
-    console.log(error);
     res.status(205).send({
       success: false,
       message: "Error while fetching similar product",

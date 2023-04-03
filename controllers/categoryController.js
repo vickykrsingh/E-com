@@ -25,7 +25,6 @@ export const createCategoryController = async (req, res) => {
       category,
     });
   } catch (error) {
-    console.log(error);
     return res.status(205).send({
       message: "Internal Server Error",
       success: false,
@@ -51,7 +50,6 @@ export const updateCategoryController = async (req, res) => {
       category,
     });
   } catch (error) {
-    console.log(error);
     res.status(500).send({
       success: false,
       message: "error while updating category",
@@ -69,7 +67,6 @@ export const getAllCategory = async (req, res) => {
       allCategory,
     });
   } catch (error) {
-    console.log(error);
     res.status(205).send({
       message: "Error While fetching all Category.",
       success: false,
@@ -107,7 +104,6 @@ export const deleteCategory = async (req, res) => {
       category,
     });
   } catch (error) {
-    console.log(error);
     res.status(205).send({
       success: false,
       message: "Error while Delete Category.",
